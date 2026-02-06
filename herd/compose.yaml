@@ -1,0 +1,25 @@
+services:
+  herd-dev:
+    profiles: [dev]
+    build:
+      context: .
+      dockerfile: Containerfile
+      target: development
+    container_name: herd-dev
+    ports:
+      - "5175:5175"
+    volumes:
+      - .:/app:rw
+      - /app/node_modules
+    restart: unless-stopped
+
+  herd-prod:
+    profiles: [prod]
+    build:
+      context: .
+      dockerfile: Containerfile
+      target: production
+    container_name: herd-prod
+    ports:
+      - "5175:5175"
+    restart: unless-stopped
